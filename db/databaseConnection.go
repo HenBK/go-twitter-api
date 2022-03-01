@@ -9,11 +9,11 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-var MongoConnection = establishDatabaseConnection()
+var MongoConnection *mongo.Client = establishDatabaseConnection()
 
-var serverAPIOptions = options.ServerAPI(options.ServerAPIVersion1)
+var serverAPIOptions *options.ServerAPIOptions = options.ServerAPI(options.ServerAPIVersion1)
 
-var clientOptions = options.Client().
+var clientOptions *options.ClientOptions = options.Client().
 	ApplyURI("mongodb+srv://admindb:zjNTUYnm41cDYTSC@cluster0.jx2gd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority").
 	SetServerAPIOptions(serverAPIOptions)
 
