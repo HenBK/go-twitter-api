@@ -6,11 +6,15 @@ import (
 	"os"
 
 	"github.com/gorilla/mux"
+	"github.com/henbk/go-twitter-api/middlewares"
+	"github.com/henbk/go-twitter-api/routers"
 	"github.com/rs/cors"
 )
 
 func Handlers() {
 	router := mux.NewRouter()
+
+	router.HandleFunc("/register", middlewares.DatabaseConnectionCheck(routers.Register)).Methods("POST")
 
 	PORT := os.Getenv("PORT")
 
