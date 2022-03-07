@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -12,10 +13,15 @@ import (
 var MongoConnection *mongo.Client = establishDatabaseConnection()
 
 func establishDatabaseConnection() *mongo.Client {
+
+	DatabasePassword := os.Getenv("MONGODBPASS")
+
+	mongoDatabaseUri := fmt.Sprintf("mongodb+srv://admindb:%s@cluster0.jx2gd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", DatabasePassword)
+
 	var serverAPIOptions *options.ServerAPIOptions = options.ServerAPI(options.ServerAPIVersion1)
 
 	var clientOptions *options.ClientOptions = options.Client().
-		ApplyURI("mongodb+srv://admindb:zjNTUYnm41cDYTSC@cluster0.jx2gd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority").
+		ApplyURI(mongoDatabaseUri).
 		SetServerAPIOptions(serverAPIOptions)
 
 	client, err := mongo.Connect(context.TODO(), clientOptions)
