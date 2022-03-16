@@ -45,11 +45,3 @@ func GetConnectionStatus() bool {
 	err := MongoConnection.Ping(context.TODO(), nil)
 	return err == nil
 }
-
-// func CheckUserExists() bool {
-// 	return false
-// }
-
-// func InsertRow(t int) (int, bool) {
-
-// }
