@@ -5,12 +5,14 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func ValidateLogin(email string, password string) (models.User, bool) {
+func ValidateLogin(email string, password string) (models.User, bool, bool) {
 
 	user, userExists, _ := CheckUserExists(email)
 
+	var sucessfulLogin bool
+
 	if !userExists {
-		return models.User{}, false
+		return models.User{}, userExists, sucessfulLogin
 	}
 
 	err := bcrypt.CompareHashAndPassword(
@@ -19,8 +21,10 @@ func ValidateLogin(email string, password string) (models.User, bool) {
 	)
 
 	if err != nil {
-		return user, false
+		return user, userExists, sucessfulLogin
+	} else {
+		sucessfulLogin = true
 	}
 
-	return user, true
+	return user, userExists, sucessfulLogin
 }
