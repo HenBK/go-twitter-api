@@ -40,8 +40,3 @@ func establishDatabaseConnection() *mongo.Client {
 
 	return client
 }
-
-func GetConnectionStatus() bool {
-	err := MongoConnection.Ping(context.TODO(), nil)
-	return err == nil
-}
