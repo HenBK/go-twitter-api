@@ -4,7 +4,7 @@ import (
 	"os"
 	"time"
 
-	jwt "github.com/golang-jwt/jwt"
+	"github.com/golang-jwt/jwt"
 	"github.com/henbk/go-twitter-api/models"
 )
 
