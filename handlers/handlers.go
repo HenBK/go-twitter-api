@@ -14,8 +14,16 @@ import (
 func Handlers() {
 	router := mux.NewRouter()
 
+	// TODO: create helper function that receives as parameters a vector of middleware functions and a handler function and returns
+	// the handler function with the middleware functions applied, just to avoid middleware functions nesting too deep
+
 	router.HandleFunc("/register", middlewares.DatabaseConnectionCheck(routers.Register)).Methods("POST")
 	router.HandleFunc("/login", middlewares.DatabaseConnectionCheck(routers.Login)).Methods("POST")
+	router.HandleFunc("/profile",
+		middlewares.DatabaseConnectionCheck(
+			middlewares.ValidateJsonWebToken(routers.Profile),
+		),
+	).Methods("GET")
 
 	PORT := os.Getenv("PORT")
 
